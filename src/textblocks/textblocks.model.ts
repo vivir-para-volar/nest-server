@@ -1,20 +1,14 @@
-import { UserRoles } from "../roles/user-roles.model";
-import { Role } from "../roles/roles.model";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  BelongsToMany,
-} from "sequelize-typescript";
+import { Model, Table, Column, DataType } from "sequelize-typescript";
 
 interface TextblockCreationAttrs {
-  email: string;
-  password: string;
+  name: string;
+  title: string;
+  text: string;
+  group: string;
 }
 
-@Table({ tableName: "users" })
+@Table({ tableName: "textblocks" })
 export class Textblock extends Model<Textblock, TextblockCreationAttrs> {
   @ApiProperty({ example: "1", description: "Уникальный идентификатор" })
   @Column({
@@ -25,15 +19,19 @@ export class Textblock extends Model<Textblock, TextblockCreationAttrs> {
   })
   id: number;
 
-  @ApiProperty({ example: "user@mail.ru", description: "Почтовый адрес" })
+  @ApiProperty({ example: "main-hero-text", description: "Уникальное название для поиска" })
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
-  email: string;
+  name: string;
 
-  @ApiProperty({ example: "12345678", description: "Пароль" })
+  @ApiProperty({ example: "main hero", description: "Название" })
   @Column({ type: DataType.STRING, allowNull: false })
-  password: string;
+  title: string;
 
-  // Связь многие ко многим (с какой сущностью связываемся, через какую таблицу это делаем)
-  @BelongsToMany(() => Role, () => UserRoles)
-  roles: Role[];
+  @ApiProperty({ example: "text", description: "Текст" })
+  @Column({ type: DataType.STRING, allowNull: false })
+  text: string;
+
+  @ApiProperty({ example: "main-page", description: "Группа" })
+  @Column({ type: DataType.STRING, allowNull: false })
+  group: string;
 }

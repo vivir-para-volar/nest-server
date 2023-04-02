@@ -4,7 +4,7 @@ import { IsNumber, IsString } from "class-validator";
 export class UpdateProfileDto {
   @ApiProperty({ example: "1", description: "Уникальный идентификатор" })
   @IsNumber({}, { message: "Должно быть числом" })
-  id: number;
+  readonly id: number;
 
   @ApiProperty({ example: "Иванов", description: "Фамилия" })
   @IsString({ message: "Должно быть строкой" })
@@ -20,7 +20,7 @@ export class UpdateProfileDto {
 
   @ApiProperty({ example: "1", description: "Уникальный идентификатор пользователя" })
   @IsNumber({}, { message: "Должно быть числом" })
-  userId: number;
+  readonly userId: number;
 
   constructor(surname: string, name: string, phone: string, userId: number) {
     this.surname = surname;

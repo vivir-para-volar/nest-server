@@ -16,7 +16,7 @@ export class CreateProfileDto {
 
   @ApiProperty({ example: "1", description: "Уникальный идентификатор пользователя" })
   @IsNumber({}, { message: "Должно быть числом" })
-  userId: number;
+  readonly userId: number;
 
   constructor(surname: string, name: string, phone: string, userId: number) {
     this.surname = surname;

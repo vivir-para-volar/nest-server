@@ -35,7 +35,7 @@ export class Profile extends Model<Profile, ProfileCreationAttrs> {
   // Профиль принадлежит одному конкретному пользователю
   @ApiProperty({ example: "1", description: "Уникальный идентификатор пользователя" })
   @ForeignKey(() => User)
-  @Column({ type: DataType.INTEGER })
+  @Column({ type: DataType.INTEGER, unique: true, allowNull: false })
   userId: number;
 
   @BelongsTo(() => User)

@@ -12,6 +12,9 @@ import { ProfilesModule } from "./profiles/profiles.module";
 import { Profile } from "./profiles/profiles.model";
 import { TextblocksModule } from "./textblocks/textblocks.module";
 import * as path from "path";
+import { Textblock } from "./textblocks/textblocks.model";
+import { FilesModule } from "./files/files.module";
+import { FileInfo } from "./files/files.model";
 
 @Module({
   controllers: [],
@@ -36,7 +39,7 @@ import * as path from "path";
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Profile],
+      models: [User, Role, UserRoles, Profile, Textblock, FileInfo],
       autoLoadModels: true,
     }),
 
@@ -45,6 +48,7 @@ import * as path from "path";
     AuthModule,
     ProfilesModule,
     TextblocksModule,
+    FilesModule,
   ],
 })
 export class AppModule {}

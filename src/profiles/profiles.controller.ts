@@ -29,7 +29,7 @@ export class ProfilesController {
     return this.profilesService.getProfileById(id);
   }
 
-  @ApiOperation({ summary: "Изменение профиля по id" })
+  @ApiOperation({ summary: "Изменение профиля" })
   @ApiParam({ name: "id", description: "Id профиля", example: 1 })
   @ApiResponse({ status: 200, type: Profile })
   @Roles("ADMIN")
@@ -39,7 +39,7 @@ export class ProfilesController {
     return this.profilesService.updateProfile(id, updateProfileDto);
   }
 
-  @ApiOperation({ summary: "Удаление профиля по id (с пользователем)" })
+  @ApiOperation({ summary: "Удаление профиля (с пользователем)" })
   @ApiParam({ name: "id", description: "Id профиля", example: 1 })
   @ApiResponse({ status: 204 })
   @Roles("ADMIN")
