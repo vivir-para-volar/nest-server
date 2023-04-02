@@ -1,13 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { User } from "../users/users.models";
-import { Role } from "./roles.models";
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  ForeignKey,
-} from "sequelize-typescript";
+import { User } from "../users/users.model";
+import { Role } from "./roles.model";
+import { Model, Table, Column, DataType, ForeignKey } from "sequelize-typescript";
 
 // Убираем столбыцы createdAt(дата создания), updatedAt(дата обновления)
 @Table({ tableName: "user_roles", createdAt: false, updatedAt: false })

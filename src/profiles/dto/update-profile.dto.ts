@@ -18,10 +18,7 @@ export class UpdateProfileDto {
   @IsString({ message: "Должно быть строкой" })
   readonly phone: string;
 
-  @ApiProperty({
-    example: "1",
-    description: "Уникальный идентификатор пользователя",
-  })
+  @ApiProperty({ example: "1", description: "Уникальный идентификатор пользователя" })
   @IsNumber({}, { message: "Должно быть числом" })
   userId: number;
 

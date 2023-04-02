@@ -1,15 +1,21 @@
 import { UserRoles } from "../roles/user-roles.model";
-import { Role } from "../roles/roles.models";
+import { Role } from "../roles/roles.model";
 import { ApiProperty } from "@nestjs/swagger";
-import { Model, Table, Column, DataType, BelongsToMany } from "sequelize-typescript";
+import {
+  Model,
+  Table,
+  Column,
+  DataType,
+  BelongsToMany,
+} from "sequelize-typescript";
 
-interface UserCreationAttrs {
+interface TextblockCreationAttrs {
   email: string;
   password: string;
 }
 
 @Table({ tableName: "users" })
-export class User extends Model<User, UserCreationAttrs> {
+export class Textblock extends Model<Textblock, TextblockCreationAttrs> {
   @ApiProperty({ example: "1", description: "Уникальный идентификатор" })
   @Column({
     type: DataType.INTEGER,

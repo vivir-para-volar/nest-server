@@ -1,16 +1,17 @@
 import { UserRoles } from "./roles/user-roles.model";
-import { Role } from "./roles/roles.models";
+import { Role } from "./roles/roles.model";
 import { Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { UsersModule } from "./users/users.module";
 import { RolesModule } from "./roles/roles.module";
 import { ConfigModule } from "@nestjs/config";
-import { User } from "./users/users.models";
+import { User } from "./users/users.model";
 import { AuthModule } from "./auth/auth.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
-import { ProfilesModule } from './profiles/profiles.module';
+import { ProfilesModule } from "./profiles/profiles.module";
 import { Profile } from "./profiles/profiles.model";
-import * as path from 'path';
+import { TextblocksModule } from "./textblocks/textblocks.module";
+import * as path from "path";
 
 @Module({
   controllers: [],
@@ -24,7 +25,7 @@ import * as path from 'path';
 
     // Чтобы сервер мог раздовать статику
     ServeStaticModule.forRoot({
-      rootPath: path.resolve( __dirname, 'static'),
+      rootPath: path.resolve(__dirname, "static"),
     }),
 
     // Настройка параметров конфигурации БД
@@ -43,6 +44,7 @@ import * as path from 'path';
     RolesModule,
     AuthModule,
     ProfilesModule,
+    TextblocksModule,
   ],
 })
 export class AppModule {}

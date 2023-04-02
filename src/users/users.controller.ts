@@ -1,9 +1,9 @@
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 import { RolesGuard } from "./../auth/roles.guard";
 import { Roles } from "./../auth/roles-auth.decorator";
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { User } from "./users.models";
+import { User } from "./users.model";
 import { UsersService } from "./users.service";
 import { AddRoleDto } from "./dto/add-role.dto";
 
@@ -32,8 +32,8 @@ export class UsersController {
 
   @ApiOperation({ summary: "Выдача роли" })
   @ApiResponse({ status: 201 })
-  // @Roles("ADMIN")
-  // @UseGuards(RolesGuard)
+  @Roles("ADMIN")
+  @UseGuards(RolesGuard)
   @Post("/role")
   addRole(@Body() addRoleDto: AddRoleDto): Promise<User> {
     return this.usersService.addRole(addRoleDto);

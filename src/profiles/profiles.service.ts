@@ -1,4 +1,4 @@
-import { User } from "./../users/users.models";
+import { User } from "../users/users.model";
 import { AuthService } from "./../auth/auth.service";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";

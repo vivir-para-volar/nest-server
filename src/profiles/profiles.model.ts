@@ -1,13 +1,6 @@
-import { User } from './../users/users.models';
+import { User } from "../users/users.model";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  ForeignKey,
-  BelongsTo,
-} from "sequelize-typescript";
+import { Model, Table, Column, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 
 interface ProfileCreationAttrs {
   surname: string;
@@ -40,7 +33,7 @@ export class Profile extends Model<Profile, ProfileCreationAttrs> {
   phone: string;
 
   // Профиль принадлежит одному конкретному пользователю
-  @ApiProperty({ example: '1', description: 'Уникальный идентификатор пользователя' })
+  @ApiProperty({ example: "1", description: "Уникальный идентификатор пользователя" })
   @ForeignKey(() => User)
   @Column({ type: DataType.INTEGER })
   userId: number;
