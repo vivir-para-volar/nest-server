@@ -55,7 +55,7 @@ export class TextblocksService {
     return new GetTextblockDto(textblock, fileInfo.name);
   }
 
-  async updateTextblock(id: number, updateTextblockDto: UpdateTextblockDto, image?: any) {
+  async updateTextblock(id: number, updateTextblockDto: UpdateTextblockDto, image: any) {
     if (id != updateTextblockDto.id) {
       throw new HttpException("Id не совпадают", HttpStatus.BAD_REQUEST);
     }

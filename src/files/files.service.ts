@@ -14,28 +14,20 @@ export class FilesService {
   ) {}
 
   async getFile(essenceTable: string, essenceId: number): Promise<FileInfo> {
-    return this.fileRepository.findOne({ where: { essenceTable, essenceId } });
+    return await this.fileRepository.findOne({ where: { essenceTable, essenceId } });
   }
 
-  async saveFile(
-    file: any,
-    essenceTable?: string,
-    essenceId?: number
-  ): Promise<FileInfo> {
+  async saveFile(file: any, essenceTable: string, essenceId: number): Promise<FileInfo> {
     const fileName = await this.writeFile(file);
 
-    return this.fileRepository.create({
+    return await this.fileRepository.create({
       name: fileName,
       essenceTable: essenceTable,
       essenceId: essenceId,
     });
   }
 
-  async updateFile(
-    file: any,
-    essenceTable: string,
-    essenceId: number
-  ): Promise<FileInfo> {
+  async updateFile(file: any, essenceTable: string, essenceId: number): Promise<FileInfo> {
     const fileInfo = await this.getFile(essenceTable, essenceId);
 
     // Удаляем старый файл
@@ -45,7 +37,7 @@ export class FilesService {
     const fileName = await this.writeFile(file);
 
     fileInfo.name = fileName;
-    fileInfo.save();
+    await fileInfo.save();
 
     return fileInfo;
   }
@@ -60,7 +52,7 @@ export class FilesService {
   async deleteUnusedFiles(): Promise<void> {
     const oneHourAgo = new Date(Date.now() - 3600 * 1000);
     const files = await this.fileRepository.findAll({ where: {
-      [Op.or]: [
+      [Op.and]: [
           { essenceTable: null },
           { essenceId: null },
           { createdAt: { [Op.lte]: oneHourAgo } },
@@ -68,7 +60,7 @@ export class FilesService {
     }});
 
     for (let file of files){
-      this.rmFile(file.name);
+      await this.rmFile(file.name);
       await this.fileRepository.destroy({ where: { id: file.id } });
     }
   }

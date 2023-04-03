@@ -48,7 +48,7 @@ export class TextblocksController {
   @UseInterceptors(FileInterceptor("image"))
   createTextBlock(
     @Body() createTextblockDto: CreateTextblockDto,
-    @UploadedFile() image?: any
+    @UploadedFile() image: any
   ): Promise<GetTextblockDto> {
     return this.textblocksService.createTextblock(createTextblockDto, image);
   }
