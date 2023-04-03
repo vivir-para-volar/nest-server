@@ -1,73 +1,58 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+<h1> Задание для 3 этапа </h1>
+<h3>Создать проект nestJs + Typescript</h3>
+
+<h3>Документация</h3>
+<p>Подробная документация доступна по эндпоинту <strong>"/api/docs"</strong></p>
+<h3>Задание</h3>
+<p>
+1. Создать необходимый код для авторизации и работы с ролями.
+<br>2. Создать код для работы с профилем.
+<br>ВАЖНО
+<br>создаем отдельные таблицы
+<br>user (для авторизации - логин/mail, пароль и пр.) и profile для профиля (фамилия, телефон, и пр - полный перечень полей на ваше усмотрение).
+<br>Связь у таблиц 1 к 1.
+<br>
+<br>У нас должен  быть эндпоинт для регистрации (поучает и пароль и ФИО и телефон и пр). Его будет обрабатывать код, относящийся к профайлу. Код профайла будет обращаться к коду авторизации, получать ID_user и использовать его для создания профиля.
+<br>Благодаря этому код авторизации будет неизменным полностью, какие бы данные в профиле не были. И проще использовать в других проектах. Особенно ценно станет при переходе к микросервисам.
+<br>2.1. Для удаления и редактирования поставить проверку прав. Только себя или админ.
+<br>
+<br>3. Создать модуль "текстовый блок".
+<br>[
+<br>Для чего используется на практике:
+<br>У вас на главной странице сайта есть текст-приветствие. А еще есть блок из трех преимуществ (У каждого картинка, текст, заголовок). Еще какой-то блок с текущей акцией и пр.
+<br>Фронтэндер может все эти тексты вшить в код, но лучше, чтобы админ мог это редактировать. 
+<br>]
+<br>Таким образом необходимы CRUD-методы для управления такими блоками
+<br>- уникальное название для поиска (например, main-hero-text)
+<br>- название 
+<br>- картинка
+<br>- текст
+<br>- ГРУППА - (например, main-page - чтобы все блоки главной страницы или другой группы фронтэнд мог получать одним запросом)
+<br>3.1. Добавление, редактирование, удаление доступно только админу.
+<br>3.2. В получении списка среди прочего должна быть возможность фильтрации по группе
+<br>
+<br>4. Написать отдельный модуль по сохранению файлов
+<br>[
+<br>Для чего используется на практике:
+<br>Пользователь заполняет форму фильму создания фильма.
+<br>К фильму добавляется 5 скриншотов.
+<br>Эти скриншоты пользователь добавляет еще до нажатия кнопки сохранить.
+<br>Но при этом мы ему сразу хотим отобразить превью этих скриншотов.
+<br>]
+<br>4.1. Сохранение файлов, в том числе в БД.
+<br>среди прочего:
+<br>- дата добавления createdAt
+<br>- сущность, где используется essenceTable
+<br>- id где используется essenceId
+<br>4.2. Добавить эндпоинт по которому можно удалить все лишние файлы
+<br>- прошло больше часа с момента создания
+<br>- нигде не используется (essenceId/essenceTable пустые)
+<br>essenceTable + essenceId могут быть, например, такие: profile 17, profile 19, film 23, film 17 (одновременно только одна пара значений само собой записана или null)
+<br>4.3. сделать п.7.
+
+<br>5. Сделать возможность использовать файловый модуль в п.5
+<br>Файл приходит вместе с остальными данными. Получается модуль текстового блока должен вызвать в том числе сохранение файла из модуля 
+<br>Цель - вся работа с файлами должна быть сосредоточена в одном месте.
+<br>Обращаем внимание, что при редактировании файл - не обязательное поле.
+<br>Обращаем внимание, что  удалении блока файл перестает использоваться
 </p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
