@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/sequelize";
 import { Textblock } from "./textblocks.model";
 import { CreateTextblockDto } from "./dto/create-textblock.dto";
 import { UpdateTextblockDto } from "./dto/update-textblock.dto";
-import { FilesService } from "src/files/files.service";
+import { FilesService } from "./../files/files.service";
 import { GetTextblockDto } from "./dto/get-textblock.dto";
 
 @Injectable()

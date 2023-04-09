@@ -3,9 +3,9 @@ import { Module } from "@nestjs/common";
 import { ProfilesController } from "./profiles.controller";
 import { ProfilesService } from "./profiles.service";
 import { SequelizeModule } from "@nestjs/sequelize";
-import { AuthModule } from "src/auth/auth.module";
+import { AuthModule } from "./../auth/auth.module";
 import { Profile } from "./profiles.model";
-import { UsersModule } from "src/users/users.module";
+import { UsersModule } from "./../users/users.module";
 
 @Module({
   controllers: [ProfilesController],

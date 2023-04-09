@@ -11,7 +11,7 @@ export class FilesController {
   constructor(private filesService: FilesService) {}
 
   @ApiOperation({ summary: "Удаление файлов, которые нигде не используется и прошло больше часа с момента создания" })
-  @ApiResponse({ status: 204 })
+  @ApiResponse({ status: 200 })
   @Delete("/unused")
   deleteUnusedFiles(): void {
     this.filesService.deleteUnusedFiles();

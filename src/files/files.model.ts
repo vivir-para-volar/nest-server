@@ -24,9 +24,9 @@ export class FileInfo extends Model<FileInfo, FileCreationAttrs> {
 
   @ApiProperty({ example: "Textblock", description: "Сущность, где используется" })
   @Column({ type: DataType.STRING })
-  essenceTable?: string;
+  essenceTable: string;
 
   @ApiProperty({ example: 1, description: "Уникальный идентификатор сущности" })
   @Column({ type: DataType.INTEGER })
-  essenceId?: number;
+  essenceId: number;
 }

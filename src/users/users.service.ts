@@ -63,7 +63,7 @@ export class UsersService {
     return await this.getUserById(addRoleDto.userId);
   }
 
-  async deleteUserById(id: number): Promise<number> {
-    return await this.userRepository.destroy({ where: { id } });
+  async deleteUserById(id: number): Promise<void> {
+    await this.userRepository.destroy({ where: { id } });
   }
 }

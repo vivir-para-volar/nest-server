@@ -17,7 +17,7 @@ export class UsersController {
   @Roles("ADMIN")
   @UseGuards(RolesGuard)
   @Get()
-  getAll(): Promise<User[]> {
+  getAllUsers(): Promise<User[]> {
     return this.usersService.getAllUsers();
   }
 
@@ -26,14 +26,13 @@ export class UsersController {
   @ApiResponse({ status: 200, type: User })
   @UseGuards(JwtAuthGuard)
   @Get(":id")
-  getById(@Param("id") id: number): Promise<User> {
+  getUserById(@Param("id") id: number): Promise<User> {
     return this.usersService.getUserById(id);
   }
 
   @ApiOperation({ summary: "Выдача роли" })
   @ApiResponse({ status: 201, type: User })
-  @Roles("ADMIN")
-  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Post("/role")
   addRole(@Body() addRoleDto: AddRoleDto): Promise<User> {
     return this.usersService.addRole(addRoleDto);

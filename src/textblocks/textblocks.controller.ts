@@ -1,9 +1,9 @@
-import { RolesGuard } from "src/auth/roles.guard";
+import { RolesGuard } from "./../auth/roles.guard";
 import { Roles } from "./../auth/roles-auth.decorator";
 import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { TextblocksService } from "./textblocks.service";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { UpdateTextblockDto } from "./dto/update-textblock.dto";
 import { CreateTextblockDto } from "./dto/create-textblock.dto";
@@ -18,7 +18,7 @@ export class TextblocksController {
   @ApiResponse({ status: 200, type: [GetTextblockDto] })
   @UseGuards(JwtAuthGuard)
   @Get()
-  getAll(): Promise<GetTextblockDto[]> {
+  getAllTextblocks(): Promise<GetTextblockDto[]> {
     return this.textblocksService.getAllTextblocks();
   }
 
@@ -27,8 +27,8 @@ export class TextblocksController {
   @ApiResponse({ status: 200, type: [GetTextblockDto] })
   @UseGuards(JwtAuthGuard)
   @Get("/group/:group")
-  getByGroup(@Param("group") group: string): Promise<GetTextblockDto[]> {
-    return this.textblocksService.getTextblocksByGroup(group);
+  getTextblocksByGroup(@Param() param: { group: string }): Promise<GetTextblockDto[]> {
+    return this.textblocksService.getTextblocksByGroup(param.group);
   }
 
   @ApiOperation({ summary: "Получение текстового блока по уникальному названию" })
@@ -36,8 +36,8 @@ export class TextblocksController {
   @ApiResponse({ status: 200, type: GetTextblockDto })
   @UseGuards(JwtAuthGuard)
   @Get(":name")
-  getByName(@Param("name") name: string): Promise<GetTextblockDto> {
-    return this.textblocksService.getTextblockByName(name);
+  getTextblockByName(@Param() param: { name: string }): Promise<GetTextblockDto> {
+    return this.textblocksService.getTextblockByName(param.name);
   }
 
   @ApiOperation({ summary: "Создание тектового блока" })
@@ -46,7 +46,7 @@ export class TextblocksController {
   @UseGuards(RolesGuard)
   @Post()
   @UseInterceptors(FileInterceptor("image"))
-  createTextBlock(
+  createTextblock(
     @Body() createTextblockDto: CreateTextblockDto,
     @UploadedFile() image: any
   ): Promise<GetTextblockDto> {
@@ -60,7 +60,7 @@ export class TextblocksController {
   @UseGuards(RolesGuard)
   @Put(":id")
   @UseInterceptors(FileInterceptor("image"))
-  update(
+  updateTextblock(
     @Param("id") id: number,
     @Body() updateTextblockDto: UpdateTextblockDto,
     @UploadedFile() image?: any
@@ -74,11 +74,11 @@ export class TextblocksController {
 
   @ApiOperation({ summary: "Удаление текстового блока" })
   @ApiParam({ name: "id", description: "Id текстового блока", example: 1 })
-  @ApiResponse({ status: 204 })
+  @ApiResponse({ status: 200 })
   @Roles("ADMIN")
   @UseGuards(RolesGuard)
   @Delete(":id")
-  delete(@Param("id") id: number): void {
+  deleteTextblock(@Param("id") id: number): void {
     this.textblocksService.deleteTextblock(id);
   }
 }

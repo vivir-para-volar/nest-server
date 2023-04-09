@@ -4,8 +4,8 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { RegistrationDto } from "./dto/registration.dto";
 import { ProfilesService } from "./profiles.service";
 import { Profile } from "./profiles.model";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { RolesGuard } from "src/auth/roles.guard";
+import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
+import { RolesGuard } from "./../auth/roles.guard";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
 
 @ApiTags("Профили пользователей")
@@ -25,8 +25,17 @@ export class ProfilesController {
   @ApiResponse({ status: 200, type: Profile })
   @UseGuards(JwtAuthGuard)
   @Get(":id")
-  getById(@Param("id") id: number): Promise<Profile> {
+  getProfileById(@Param("id") id: number): Promise<Profile> {
     return this.profilesService.getProfileById(id);
+  }
+
+  @ApiOperation({ summary: "Получение профиля по id пользователя" })
+  @ApiParam({ name: "id", description: "Id пользователя", example: 1 })
+  @ApiResponse({ status: 200, type: Profile })
+  @UseGuards(JwtAuthGuard)
+  @Get("/user/:id")
+  getProfileByUserId(@Param("id") id: number): Promise<Profile> {
+    return this.profilesService.getProfileByUserId(id);
   }
 
   @ApiOperation({ summary: "Изменение профиля" })
@@ -35,17 +44,17 @@ export class ProfilesController {
   @Roles("ADMIN")
   @UseGuards(RolesGuard)
   @Put(":id")
-  update(@Param("id") id: number, @Body() updateProfileDto: UpdateProfileDto): Promise<Profile> {
+  updateProfile(@Param("id") id: number, @Body() updateProfileDto: UpdateProfileDto): Promise<Profile> {
     return this.profilesService.updateProfile(id, updateProfileDto);
   }
 
   @ApiOperation({ summary: "Удаление профиля (с пользователем)" })
   @ApiParam({ name: "id", description: "Id профиля", example: 1 })
-  @ApiResponse({ status: 204 })
+  @ApiResponse({ status: 200 })
   @Roles("ADMIN")
   @UseGuards(RolesGuard)
   @Delete(":id")
-  delete(@Param("id") id: number): void {
+  deleteProfileByIdWithUser(@Param("id") id: number): void {
     this.profilesService.deleteProfileByIdWithUser(id);
   }
 }

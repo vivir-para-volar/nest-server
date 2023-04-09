@@ -5,7 +5,7 @@ import { SequelizeModule } from "@nestjs/sequelize";
 import { RolesController } from "./roles.controller";
 import { Role } from "./roles.model";
 import { RolesService } from "./roles.service";
-import { AuthModule } from "src/auth/auth.module";
+import { AuthModule } from "./../auth/auth.module";
 
 @Module({
   controllers: [RolesController],

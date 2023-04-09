@@ -4,9 +4,9 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { Profile } from "./profiles.model";
 import { RegistrationDto } from "./dto/registration.dto";
-import { AuthDto } from "src/auth/dto/auth.dto";
+import { AuthDto } from "./../auth/dto/auth.dto";
 import { CreateProfileDto } from "./dto/create-profile.dto";
-import { UsersService } from "src/users/users.service";
+import { UsersService } from "./../users/users.service";
 import { UpdateProfileDto } from "./dto/update-profile.dto";
 
 @Injectable()
@@ -42,6 +42,11 @@ export class ProfilesService {
     return profile;
   }
 
+  async getProfileByUserId(id: number): Promise<Profile> {
+    const profile = await this.profileRepository.findOne({ where: { userId: id } })
+    return profile;
+  }
+
   async updateProfile(id: number, updateProfileDto: UpdateProfileDto): Promise<Profile> {
     if (id != updateProfileDto.id) {
       throw new HttpException("Id не совпадают", HttpStatus.BAD_REQUEST);
@@ -62,7 +67,7 @@ export class ProfilesService {
 
   async deleteProfileByIdWithUser(id: number): Promise<void> {
     const profile = await this.getProfileById(id);
-    await this.usersService.deleteUserById(profile.userId);
     await this.profileRepository.destroy({ where: { id } });
+    await this.usersService.deleteUserById(profile.userId);
   }
 }

@@ -4,7 +4,7 @@ import { TextblocksController } from "./textblocks.controller";
 import { TextblocksService } from "./textblocks.service";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { Textblock } from "./textblocks.model";
-import { FilesModule } from "src/files/files.module";
+import { FilesModule } from "./../files/files.module";
 
 @Module({
   controllers: [TextblocksController],
